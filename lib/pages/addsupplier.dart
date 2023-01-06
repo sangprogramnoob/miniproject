@@ -61,7 +61,7 @@ class _AddSupplierState extends State<AddSupplier> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          textScreen.addbarang,
+          textScreen.addSupplier,
           style: GoogleFonts.didactGothic(),
         ),
       ),
