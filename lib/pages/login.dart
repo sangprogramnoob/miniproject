@@ -142,15 +142,27 @@ class _LoginPageState extends State<LoginPage> {
 
                                     if (response.statusCode == 200 && decoded["message"] == "LOGIN SUCCESS") {
                                       final result = LoginSuccesModel.fromJson(decoded);
-                                      saveData("id", result.data.id);
-                                      saveData("profileName", result.data.profileName);
-                                      saveData("token", result.data.token);
-                                      usernameController.clear();
-                                      passwordController.clear();
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => HomePage()),
-                                      );
+
+                                      Future.delayed(Duration(milliseconds: 500), () {
+                                        saveData("id", result.data.id);
+                                      });
+
+                                      Future.delayed(Duration(seconds: 1), () {
+                                        saveData("profileName", result.data.profileName);
+                                      });
+
+                                      Future.delayed(Duration(milliseconds: 1500), () {
+                                        saveData("token", result.data.token);
+                                      });
+
+                                      Future.delayed(Duration(seconds: 2), () {
+                                        usernameController.clear();
+                                        passwordController.clear();
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => HomePage()),
+                                        );
+                                      });
                                     }
                                   },
                                 );
