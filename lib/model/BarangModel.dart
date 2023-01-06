@@ -1,0 +1,111 @@
+// To parse this JSON data, do
+//
+//     final barangModel = barangModelFromJson(jsonString);
+
+// ignore_for_file: file_names, prefer_typing_uninitialized_variables
+
+import 'dart:convert';
+
+BarangModel barangModelFromJson(String str) => BarangModel.fromJson(json.decode(str));
+
+String barangModelToJson(BarangModel data) => json.encode(data.toJson());
+
+class BarangModel {
+  BarangModel({
+    this.data,
+    required this.message,
+    required this.status,
+    required this.limit,
+    required this.page,
+    required this.totalPage,
+    required this.totalRecord,
+  });
+
+  List<Datum>? data;
+  String message;
+  String status;
+  int limit;
+  int page;
+  int totalPage;
+  int totalRecord;
+
+  factory BarangModel.fromJson(Map<String, dynamic> json) => BarangModel(
+        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        message: json["message"],
+        status: json["status"],
+        limit: json["limit"],
+        page: json["page"],
+        totalPage: json["total_page"],
+        totalRecord: json["total_record"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "data": List<dynamic>.from(data!.map((x) => x.toJson())),
+        "message": message,
+        "status": status,
+        "limit": limit,
+        "page": page,
+        "total_page": totalPage,
+        "total_record": totalRecord,
+      };
+}
+
+class Datum {
+  Datum({
+    required this.id,
+    required this.namaBarang,
+    required this.harga,
+    required this.stok,
+    required this.supplier,
+  });
+
+  int id;
+  String namaBarang;
+  var harga;
+  int stok;
+  Supplier supplier;
+
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+        id: json["id"],
+        namaBarang: json["namaBarang"],
+        harga: json["harga"],
+        stok: json["stok"],
+        supplier: Supplier.fromJson(json["supplier"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "namaBarang": namaBarang,
+        "harga": harga,
+        "stok": stok,
+        "supplier": supplier.toJson(),
+      };
+}
+
+class Supplier {
+  Supplier({
+    required this.id,
+    required this.namaSupplier,
+    required this.noTelp,
+    required this.alamat,
+  });
+
+  int id;
+  String namaSupplier;
+  String noTelp;
+  String alamat;
+
+  factory Supplier.fromJson(Map<String, dynamic> json) => Supplier(
+        id: json["id"],
+        namaSupplier: json["namaSupplier"] ?? "",
+        noTelp: json["noTelp"] ?? "",
+        alamat: json["alamat"] ?? "",
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "namaSupplier": namaSupplier,
+        "noTelp": noTelp,
+        "alamat": alamat,
+      };
+}
